@@ -1,11 +1,9 @@
 <?php
 
-function dd($value) {
-    echo '<pre>';
-    var_dump($value);
-    echo '</pre>';
+require 'functions.php';
+require 'Database.php';
+$config = require 'config.php';
 
-    die();
-}
+
 
 require 'router.php';

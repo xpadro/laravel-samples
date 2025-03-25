@@ -11,6 +11,7 @@
                 </a>
             </li>
         <?php endforeach ?>
+
     </div>
 </main>
 <?php require('partials/foot.php') ?>
