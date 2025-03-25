@@ -4,13 +4,10 @@
 
 <main>
     <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-        <?php foreach ($notes as $note): ?>
-            <li>
-                <a href="/note?id=<?= $note['id'] ?>">
-                    <?= $note['body'] ?>
-                </a>
-            </li>
-        <?php endforeach ?>
+        <p>
+            <h3 class="font-bold">Detail</h3>
+            <?= htmlspecialchars($note['body']) ?>
+        </p>
 
     </div>
 </main>
