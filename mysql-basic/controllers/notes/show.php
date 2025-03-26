@@ -8,4 +8,4 @@ $note = $db->query('select * from notes where id = :id', ['id' => $id])->fetch()
 
 
 $heading = 'Note Detail';
-require 'views/note-detail.view.php';
+require 'views/notes/show.view.php';
