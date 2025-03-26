@@ -3,9 +3,9 @@
 require __DIR__ . '/../../Validator.php';
 
 $db = new Database($config['database']);
+$errors = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $errors = [];
 
     if (!Validator::string($_POST['body'], 1, 10)) {
         $errors['body'] = 'A body with no more than 10 characters is required';
@@ -19,5 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-$heading = 'Create Note';
-require 'views/notes/create.view.php';
+view('notes/create.view.php', [
+    'heading' => 'Create Note',
+    'errors' => $errors
+]);
