@@ -15,7 +15,7 @@ function abort(): void
     http_response_code(404);
 
     $heading = 'Not found';
-    require 'views/404.php';
+    require basePath('views/404.php');
 
     die();
 }

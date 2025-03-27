@@ -10,7 +10,7 @@ $routes = [
 ];
 
 if (array_key_exists($uri, $routes)) {
-    require $routes[$uri];
+    require basePath($routes[$uri]);
 } else {
     abort();
 }
