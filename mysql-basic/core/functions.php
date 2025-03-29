@@ -10,12 +10,11 @@ function dd($value) {
     die();
 }
 
-function abort(): void
+function abort($code = 404): void
 {
-    http_response_code(404);
+    http_response_code($code);
 
-    $heading = 'Not found';
-    require basePath('views/404.php');
+    require basePath("views/{$code}.php");
 
     die();
 }
@@ -34,4 +33,12 @@ function view($path, $attributes = []): void
 {
     extract($attributes); // Extracts each item into a variable in this scope
     require basePath('views/' . $path);
+}
+
+function authorize($condition, $status = 403) {
+    if (!$condition) {
+        abort($status);
+    }
+
+    return true;
 }
