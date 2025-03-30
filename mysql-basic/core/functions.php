@@ -10,15 +10,6 @@ function dd($value) {
     die();
 }
 
-function abort($code = 404): void
-{
-    http_response_code($code);
-
-    require basePath("views/{$code}.php");
-
-    die();
-}
-
 function isUrl($url): bool
 {
     return $_SERVER['REQUEST_URI'] === $url;
@@ -41,4 +32,13 @@ function authorize($condition, $status = 403) {
     }
 
     return true;
+}
+
+function abort($code = 404): void
+{
+    http_response_code($code);
+
+    require basePath("views/{$code}.php");
+
+    die();
 }
