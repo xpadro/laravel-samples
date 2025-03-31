@@ -4,6 +4,8 @@ use core\App;
 use core\Database;
 use core\Validator;
 
+$db = App::resolve(Database::class);
+
 $email = $_POST['email'];
 $password = $_POST['password'];
 
@@ -18,30 +20,30 @@ if (!Validator::string($password, 3, 255)) {
 }
 
 if (!empty($errors)) {
-    view('registration/create.view.php', [
+    view('session/create.view.php', [
         'errors' => $errors
     ]);
 }
 
-$db = App::resolve(Database::class);
 $user = $db->query("SELECT * FROM users WHERE email = :email", [
     'email' => $email
 ])->fetch();
 
 if ($user) {
-    // User already exists. Redirect to login page
-    header('Location: /login');
-    exit();
+    if (password_verify($password, $user['password'])) {
+        login([
+            'email' => $email
+        ]);
+
+        header('Location: /');
+        exit();
+    }
+
+    $errors['password'] = 'Please enter a valid password';
 } else {
-    $db->query("INSERT INTO users (email, password) VALUES (:email, :password)", [
-        'email' => $email,
-        'password' => password_hash($password, PASSWORD_BCRYPT)
-    ]);
-
-    login([
-        'email' => $email
-    ]);
-
-    header('Location: /');
-    exit();
+    $errors['email'] = 'No matching user found';
 }
+
+view('session/create.view.php', [
+    'errors' => $errors
+]);
