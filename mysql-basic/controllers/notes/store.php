@@ -1,10 +1,10 @@
 <?php
 
-use core\Database;
 use core\Validator;
+use core\App;
+use core\Database;
 
-$config = require basePath('config.php');
-$db = new Database($config['database']);
+$db = App::resolve(Database::class);
 $errors = [];
 
 if (!Validator::string($_POST['body'], 1, 10)) {

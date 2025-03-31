@@ -1,9 +1,10 @@
 <?php
 
+use core\App;
 use core\Database;
 
-$config = require basePath('config.php');
-$db = new Database($config['database']);
+$db = App::resolve(Database::class);
+
 $currentUserId = 1;
 
 // Get the note from the DB
