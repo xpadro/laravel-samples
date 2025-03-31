@@ -10,6 +10,16 @@
                     </div>
                 </div>
             </div>
+
+            <div class="relative ml-3">
+                <?php if ($_SESSION['user'] ?? false) : ?>
+                    <span class="text-white">Signed in</span>
+
+                <?php else : ?>
+                    <a href="/register" class="text-white">Register</a>
+
+                <?php endif; ?>
+            </div>
         </div>
     </div>
 </nav>

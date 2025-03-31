@@ -2,6 +2,8 @@
 
 use core\Router;
 
+session_start();
+
 const BASE_PATH = __DIR__ . '/../'; // Set the root path of the app to mysql-basic/
 require BASE_PATH . 'core/functions.php';
 
