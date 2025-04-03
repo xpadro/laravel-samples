@@ -13,13 +13,6 @@
                 </div>
             </div>
 
-            <?php if (!$_SESSION['user'] ?? false) : ?>
-                <div class="relative ml-3">
-                    <a href="/register" class="<?= isUrl('/register') ? 'bg-gray-900 text-white' : 'text-gray-300' ?> rounded-md px-3 py-2 text-sm font-medium hover:bg-gray-700 hover:text-white" aria-current="page">Register</a>
-                    <a href="/login" class="<?= isUrl('/login') ? 'bg-gray-900 text-white' : 'text-gray-300' ?> rounded-md px-3 py-2 text-sm font-medium hover:bg-gray-700 hover:text-white" aria-current="page">Log In</a>
-                </div>
-            <?php endif; ?>
-
             <?php if ($_SESSION['user'] ?? false) : ?>
                 <div class="relative ml-3">
                     <form action="/sessions" method="POST">
@@ -27,6 +20,12 @@
                         <button class="text-white">Log Out</button>
                     </form>
                 </div>
+            <?php else : ?>
+                <div class="relative ml-3">
+                    <a href="/register" class="<?= isUrl('/register') ? 'bg-gray-900 text-white' : 'text-gray-300' ?> rounded-md px-3 py-2 text-sm font-medium hover:bg-gray-700 hover:text-white" aria-current="page">Register</a>
+                    <a href="/login" class="<?= isUrl('/login') ? 'bg-gray-900 text-white' : 'text-gray-300' ?> rounded-md px-3 py-2 text-sm font-medium hover:bg-gray-700 hover:text-white" aria-current="page">Log In</a>
+                </div>
+
             <?php endif; ?>
 
         </div>
