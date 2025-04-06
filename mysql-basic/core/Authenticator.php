@@ -9,7 +9,7 @@ class Authenticator
 
         $user = $db->query("SELECT * FROM users WHERE email = :email", [
             'email' => $email
-        ])->fetch();
+        ])->fetch();;
 
         if ($user) {
             if (password_verify($password, $user['password'])) {
@@ -33,12 +33,6 @@ class Authenticator
     }
 
     public function logout() {
-        // Destroy session
-        $_SESSION = [];
-        session_destroy();
-
-        // Destroy client cookie
-        $params = session_get_cookie_params();
-        setcookie(session_name(), '', time() - 3600, $params['path'], $params['domain'], $params['secure'], $params['httponly']);
+        Session::destroy();
     }
 }

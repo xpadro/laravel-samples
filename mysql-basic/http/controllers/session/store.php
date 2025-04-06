@@ -1,6 +1,7 @@
 <?php
 
 use core\Authenticator;
+use core\Session;
 use http\forms\LoginForm;
 
 
@@ -17,6 +18,6 @@ if ($form->validate($email, $password)) {
     $form->addError('email', 'No matching user found');
 }
 
-view('session/create.view.php', [
-    'errors' => $form->getErrors()
-]);
+// PRG (Post Redirect Get)
+Session::flash('errors', $form->getErrors());
+redirect('/login');

@@ -1,6 +1,7 @@
 <?php
 
 use core\App;
+use core\Authenticator;
 use core\Database;
 use core\Validator;
 
@@ -30,18 +31,16 @@ $user = $db->query("SELECT * FROM users WHERE email = :email", [
 
 if ($user) {
     // User already exists. Redirect to login page
-    header('Location: /login');
-    exit();
+    redirect('/login');
 } else {
     $db->query("INSERT INTO users (email, password) VALUES (:email, :password)", [
         'email' => $email,
         'password' => password_hash($password, PASSWORD_BCRYPT)
     ]);
 
-    login([
+    new Authenticator()->login([
         'email' => $email
     ]);
 
-    header('Location: /');
-    exit();
+    redirect('/');
 }

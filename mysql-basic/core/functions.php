@@ -47,3 +47,13 @@ function redirect($url) {
     header("location: $url");
     exit();
 }
+
+function old($key, $default = '')
+{
+    return get('old')[$key] ?? $default;
+}
+
+function get($key, $default = null)
+{
+    return $_SESSION['_flash'][$key] ?? $_SESSION[$key] ?? $default;
+}

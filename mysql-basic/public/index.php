@@ -1,6 +1,7 @@
 <?php
 
 use core\Router;
+use core\Session;
 
 session_start();
 
@@ -23,3 +24,6 @@ $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
 $method = $_POST['_method'] ?? $_SERVER['REQUEST_METHOD'];
 
 $router->route($uri, $method);
+
+// Delete custom 'flash' session data, meant to be available for just one request
+Session::unflash();
