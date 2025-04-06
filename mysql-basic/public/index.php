@@ -2,6 +2,7 @@
 
 use core\Router;
 use core\Session;
+use core\ValidationException;
 
 session_start();
 
@@ -23,7 +24,15 @@ $routes = require basePath('routes.php');
 $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
 $method = $_POST['_method'] ?? $_SERVER['REQUEST_METHOD'];
 
-$router->route($uri, $method);
+try {
+    $router->route($uri, $method);
+} catch (ValidationException $exception) {
+    // PRG (Post Redirect Get)
+    Session::flash('errors', $exception->getErrors());
+    Session::flash('old', $exception->getOld());
+
+    redirect($_SERVER['HTTP_REFERER'] ?? '/');
+}
 
 // Delete custom 'flash' session data, meant to be available for just one request
 Session::unflash();

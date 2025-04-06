@@ -1,26 +1,21 @@
 <?php
 
 use core\Authenticator;
-use core\Session;
 use http\forms\LoginForm;
 
 
 $email = $_POST['email'];
 $password = $_POST['password'];
 
-$form = new LoginForm();
+$form = LoginForm::validate($attributes = [
+    'email' => $email,
+    'password' => $password,
+]);
 
-if ($form->validate($email, $password)) {
-    if (new Authenticator()->authenticate($email, $password)) {
-        redirect('/');
-    }
+$authenticated = new Authenticator()->authenticate($attributes['email'], $attributes['password']);
 
-    $form->addError('email', 'No matching user found');
+if (!$authenticated) {
+    $form->addError('email', 'No matching user found')->throw();
 }
 
-// PRG (Post Redirect Get)
-Session::flash('errors', $form->getErrors());
-Session::flash('old', [
-    'email' => $email,
-]);
-redirect('/login');
+redirect('/');
