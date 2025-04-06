@@ -1,5 +1,6 @@
 <?php
 
+use core\Session;
 use JetBrains\PhpStorm\NoReturn;
 
 function dd($value) {
@@ -55,5 +56,5 @@ function old($key, $default = '')
 
 function get($key, $default = null)
 {
-    return $_SESSION['_flash'][$key] ?? $_SESSION[$key] ?? $default;
+    return Session::get($key);
 }

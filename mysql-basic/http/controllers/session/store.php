@@ -20,4 +20,7 @@ if ($form->validate($email, $password)) {
 
 // PRG (Post Redirect Get)
 Session::flash('errors', $form->getErrors());
+Session::flash('old', [
+    'email' => $email,
+]);
 redirect('/login');
