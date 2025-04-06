@@ -43,21 +43,7 @@ function abort($code = 404): void
     die();
 }
 
-function login($user) {
-    $_SESSION['user'] = [
-        'email' => $user['email']
-    ];
-
-    // Security measure to regenerate de sessionId
-    session_regenerate_id(true);
-}
-
-function logout() {
-    // Destroy session
-    $_SESSION = [];
-    session_destroy();
-
-    // Destroy client cookie
-    $params = session_get_cookie_params();
-    setcookie(session_name(), '', time() - 3600, $params['path'], $params['domain'], $params['secure'], $params['httponly']);
+function redirect($url) {
+    header("location: $url");
+    exit();
 }

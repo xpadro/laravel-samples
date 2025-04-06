@@ -1,0 +1,44 @@
+<?php
+
+namespace core;
+
+class Authenticator
+{
+    public function authenticate($email, $password) {
+        $db = App::resolve(Database::class);
+
+        $user = $db->query("SELECT * FROM users WHERE email = :email", [
+            'email' => $email
+        ])->fetch();
+
+        if ($user) {
+            if (password_verify($password, $user['password'])) {
+                $this->login([
+                    'email' => $email
+                ]);
+
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function login($user) {
+        $_SESSION['user'] = [
+            'email' => $user['email']
+        ];
+
+        // Security measure to regenerate de sessionId
+        session_regenerate_id(true);
+    }
+
+    public function logout() {
+        // Destroy session
+        $_SESSION = [];
+        session_destroy();
+
+        // Destroy client cookie
+        $params = session_get_cookie_params();
+        setcookie(session_name(), '', time() - 3600, $params['path'], $params['domain'], $params['secure'], $params['httponly']);
+    }
+}
