@@ -12,10 +12,16 @@
     "autoload": {
         "psr-4": {
             "core\\": "core/",
-            "http\\": "http/"
+            "http\\": "http/",
+            "Tests\\": "tests/"
         }
     },
     "require-dev": {
-        "pestphp/pest": "*"
+        "pestphp/pest": "^3.8"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
     }
 }
